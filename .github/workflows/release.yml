@@ -76,6 +76,9 @@ jobs:
           - name: lumen-gpu
             dockerfile: gpu.Dockerfile
             context: .
+          - name: lumen-cache
+            dockerfile: cache/Dockerfile
+            context: cache
     steps:
       - uses: actions/checkout@v4
         with:

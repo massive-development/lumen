@@ -1,0 +1,105 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-go:
+    name: Build & Vet Go Services
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service:
+          - { name: memory,  dir: memory }
+          - { name: tools,   dir: tools  }
+          - { name: gpu,     dir: gpu    }
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: ${{ matrix.service.dir }}/go.mod
+          cache-dependency-path: ${{ matrix.service.dir }}/go.sum
+
+      - name: Build ${{ matrix.service.name }}
+        working-directory: ${{ matrix.service.dir }}
+        run: go build ./...
+
+      - name: Vet ${{ matrix.service.name }}
+        working-directory: ${{ matrix.service.dir }}
+        run: go vet ./...
+
+  build-proxy:
+    name: Build & Vet Proxy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+
+      - name: Build proxy
+        run: |
+          go mod init bitnet/proxy
+          go mod tidy
+          go build -o /dev/null proxy.go
+          go vet proxy.go
+
+  lint-python:
+    name: Lint Python
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install ruff
+        run: pip install ruff
+
+      - name: Lint
+        run: ruff check keygen.py gpu/worker.py
+
+  docker-build:
+    name: Docker Build Check
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - name: bitnet-cpu
+            dockerfile: Dockerfile
+            context: .
+          - name: bitnet-proxy
+            dockerfile: proxy.Dockerfile
+            context: .
+          - name: bitnet-memory
+            dockerfile: memory/Dockerfile
+            context: memory
+          - name: bitnet-tools
+            dockerfile: tools/Dockerfile
+            context: tools
+          - name: bitnet-gpu
+            dockerfile: gpu.Dockerfile
+            context: .
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Build ${{ matrix.name }}
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.context }}
+          file: ${{ matrix.dockerfile }}
+          push: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

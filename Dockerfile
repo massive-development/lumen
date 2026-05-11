@@ -25,8 +25,10 @@ RUN cmake -B build \
         -DBITNET_X86_TL2=OFF \
         -DBUILD_SHARED_LIBS=OFF \
         -DCMAKE_C_COMPILER=clang \
-        -DCMAKE_CXX_COMPILER=clang++ && \
-    cmake --build build --config Release -j$(nproc)
+        -DCMAKE_CXX_COMPILER=clang++
+
+# Only build llama-server — avoids pulling in optional deps for other targets.
+RUN cmake --build build --config Release --target llama-server -j$(nproc)
 
 
 # ── Stage 2: Runtime ──────────────────────────────────────────────────────────

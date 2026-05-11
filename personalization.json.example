@@ -1,0 +1,10 @@
+{
+  "name": "Your Name",
+  "style": "technical and direct",
+  "background": "software engineer",
+  "context": "Brief description of your setup or goals.",
+  "always_inject": [
+    { "category": "preference", "content": "Example: prefers concise answers" },
+    { "category": "preference", "content": "Example: prefers Go over Python for new services" }
+  ]
+}

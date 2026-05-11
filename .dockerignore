@@ -1,0 +1,49 @@
+# Large binary/data directories
+gpu/checkpoints/
+models/
+build/
+logs/
+
+# Git internals
+.git/
+
+# Pre-downloaded release binaries
+olla_v0.0.27_linux_amd64/
+
+# Documentation and media
+docs/
+media/
+assets/
+
+# Python cache
+**/__pycache__/
+*.pyc
+*.pyo
+
+# Scratch files
+wget-log
+test
+litellm_config.yaml
+
+# Upstream tooling not used by the Docker build
+preset_kernels/
+utils/
+requirements.txt
+
+# Runtime config (not needed in build context)
+nginx.conf
+olla.yaml
+certs/
+personalization.json
+memory/
+tools/
+postgres/
+searxng/
+proxy.Dockerfile
+gpu.Dockerfile
+docker-compose.yaml
+keygen.py
+*.md
+
+# Secrets
+.env

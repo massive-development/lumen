@@ -1,0 +1,9 @@
+# Private instance — allow all internal Docker network IPs without proxy headers.
+# pass_ip bypasses botdetection entirely for matching addresses.
+[botdetection.ip_lists]
+pass_ip = [
+    "127.0.0.0/8",
+    "10.0.0.0/8",
+    "172.16.0.0/12",
+    "192.168.0.0/16",
+]

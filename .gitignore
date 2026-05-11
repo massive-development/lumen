@@ -1,0 +1,65 @@
+# Extensions
+
+*.a
+*.bat
+*.bin
+*.dll
+*.dot
+*.etag
+*.exe
+*.gcda
+*.gcno
+*.gcov
+*.gguf
+*.gguf.json
+*.lastModified
+*.log
+*.metallib
+*.o
+*.so
+*.tmp
+
+# IDE / OS
+
+.cache/
+.ccls-cache/
+.direnv/
+.DS_Store
+.envrc
+.env
+.idea/
+.swiftpm
+.vs/
+.vscode/
+nppBackup
+
+# Models
+models/*
+gpu/checkpoints/*
+
+# Generated kernel files (produced by setup_env.py or codegen utils)
+include/bitnet-lut-kernels.h
+include/kernel_config.ini
+
+# Python
+
+/.venv
+__pycache__/
+*/poetry.lock
+poetry.toml
+
+build/
+logs/
+certs/
+
+# Compiled binaries
+gpu/gpu-server
+tools/tools
+
+# Runtime / personal config
+personalization.json
+olla_v*/
+wget-log
+
+# Claude Code local settings
+.claude/

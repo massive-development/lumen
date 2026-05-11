@@ -1,6 +1,6 @@
 # Upstream Reference
 
-This repository contains custom services and configuration built on top of [microsoft/BitNet](https://github.com/microsoft/BitNet).
+Lumen's inference core is [microsoft/BitNet](https://github.com/microsoft/BitNet), pinned as a git submodule at `bitnet/`. Everything else in this repo is original Lumen code.
 
 ## Original Repository
 

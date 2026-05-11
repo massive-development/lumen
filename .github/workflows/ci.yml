@@ -73,19 +73,19 @@ jobs:
     strategy:
       matrix:
         include:
-          - name: bitnet-cpu
+          - name: lumen-cpu
             dockerfile: Dockerfile
             context: .
-          - name: bitnet-proxy
+          - name: lumen-proxy
             dockerfile: proxy.Dockerfile
             context: .
-          - name: bitnet-memory
+          - name: lumen-memory
             dockerfile: memory/Dockerfile
             context: memory
-          - name: bitnet-tools
+          - name: lumen-tools
             dockerfile: tools/Dockerfile
             context: tools
-          - name: bitnet-gpu
+          - name: lumen-gpu
             dockerfile: gpu.Dockerfile
             context: .
     steps:

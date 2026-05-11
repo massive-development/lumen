@@ -1,8 +1,8 @@
-# BitNet Stack
+# Lumen
 
-A self-contained, fully local LLM system built on [Microsoft BitNet.cpp](https://github.com/microsoft/BitNet), with drop-in Claude Code compatibility via an Anthropic→OpenAI proxy.
+A self-contained, fully local LLM stack built on [Microsoft BitNet.cpp](https://github.com/microsoft/BitNet), with drop-in Claude Code compatibility via an Anthropic→OpenAI proxy.
 
-Run BitNet inference entirely on your own hardware. Point Claude Code (or any Anthropic SDK client) at your local machine and it works transparently — no API keys, no usage costs, no data leaving your network.
+Run inference entirely on your own hardware. Point Claude Code (or any Anthropic SDK client) at your local machine and it works transparently — no API keys, no usage costs, no data leaving your network.
 
 ---
 
@@ -43,9 +43,8 @@ Run BitNet inference entirely on your own hardware. Point Claude Code (or any An
 ### 1. Clone
 
 ```bash
-git clone https://github.com/brandon-c-xgen/BitNet.git
-cd BitNet
-git submodule update --init --recursive
+git clone --recurse-submodules https://github.com/massive-development/lumen.git
+cd lumen
 ```
 
 ### 2. Download the model

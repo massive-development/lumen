@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /build
-COPY gpu/bitnet_kernels/ .
+COPY bitnet/gpu/bitnet_kernels/ .
 
 # 86 = Ampere (RTX 3000). Override with --build-arg CUDA_ARCH=89 for RTX 4000.
 ARG CUDA_ARCH=86
@@ -44,10 +44,11 @@ WORKDIR /app/BitNet/gpu
 RUN pip install --no-cache-dir xformers --index-url https://download.pytorch.org/whl/cu124
 
 # Install remaining Python deps (torch and xformers excluded — already above).
-COPY gpu/requirements.txt .
+COPY bitnet/gpu/requirements.txt .
 RUN grep -vE '^(torch|xformers)' requirements.txt | pip install --no-cache-dir -r /dev/stdin
 
-# Copy GPU pipeline source, compiled kernel, and Go server binary.
+# Copy upstream GPU pipeline source, then overlay Lumen custom files on top.
+COPY bitnet/gpu/ .
 COPY gpu/ .
 COPY --from=cuda-builder /build/libbitnet.so ./bitnet_kernels/libbitnet.so
 COPY --from=go-builder   /build/server       ./server

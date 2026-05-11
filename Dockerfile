@@ -11,7 +11,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app/BitNet
-COPY . .
+# Copy the upstream BitNet source from the submodule, not the Lumen repo root.
+# The submodule provides CMakeLists.txt, include/, src/, 3rdparty/, etc.
+COPY bitnet/ .
 
 # bitnet-lut-kernels.h is included unconditionally but all content is guarded by
 # GGML_BITNET_X86_TL2, which we disable. A stub satisfies the include on fresh clones.

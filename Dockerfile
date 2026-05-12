@@ -24,9 +24,8 @@ RUN [ -f include/bitnet-lut-kernels.h ] || touch include/bitnet-lut-kernels.h
 RUN cmake -B build \
         -DBITNET_X86_TL2=OFF \
         -DBUILD_SHARED_LIBS=OFF \
-        -DCMAKE_C_COMPILER=clang \
-        -DCMAKE_CXX_COMPILER=clang++ \
-        -DCMAKE_VERBOSE_MAKEFILE=ON
+        -DCMAKE_C_COMPILER=gcc \
+        -DCMAKE_CXX_COMPILER=g++
 
 RUN cmake --build build --config Release -j$(nproc)
 

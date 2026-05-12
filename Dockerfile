@@ -61,14 +61,4 @@ ENV THREADS=""
 # -tb = batch threads (prompt prefill — dominates latency as conversation grows)
 # Both default to nproc so the container uses all cores it can see.
 # --alias sets the model ID reported by /v1/models so clients (Claude Code, Olla) see it by name
-CMD build/bin/llama-server \
-    -m ${MODEL_PATH} \
-    --alias ${MODEL_ALIAS} \
-    -c 2048 \
-    -t ${THREADS:-$(nproc)} \
-    -tb ${THREADS:-$(nproc)} \
-    -ngl 0 \
-    --host 0.0.0.0 \
-    --port 8081 \
-    -cb \
-    --cache-reuse 256
+CMD ["sh", "-c", "exec build/bin/llama-server -m ${MODEL_PATH} --alias ${MODEL_ALIAS} -c 2048 -t ${THREADS:-$(nproc)} -tb ${THREADS:-$(nproc)} -ngl 0 --host 0.0.0.0 --port 8081 -cb --cache-reuse 256"]
